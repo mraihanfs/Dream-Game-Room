@@ -142,7 +142,7 @@ if (isset($_SESSION['nameAD'])) {
                                                     </div>
                                                 </td>
                                                 <!--Button Hapus + pop upnya-->
-                                                <td>
+                                                <td>    
                                                     <button type="button" class="btn btn-primary  btn-sm" type="submit" data-toggle="modal" data-target="#myModalhapususer<?php echo $try ?>">Hapus !</button>
                                                     <!--pop up Hapus  Operator-->
                                                     <div id="myModalhapususer<?php echo $try ?>" class="modal fade " role="dialog">

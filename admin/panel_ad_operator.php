@@ -208,7 +208,7 @@ if (isset($_SESSION['nameAD'])) {
                                                                 <div class="modal-footer">
                                                                     <div class="col4">
                                                                         <form action="EditSave.php" method="POST">
-                                                                            <button type="submit" class="btn btn-primary submit btn-sm" name="submit" value="OP:hapus:<?php echo $data['NID']?>">Yaqien</button>
+                                                                            <button type="submit" class="btn btn-primary submit btn-sm" name="submit" value="OP:hapus:<?php echo $data['NIK']?>">Yaqien</button>
                                                                         </form>
                                                                     </div>
                                                                 </div>
