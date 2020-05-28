@@ -1,0 +1,84 @@
+.demo {
+    background: #f7f7f7;
+}
+
+/* Ini buat menu dropdown spesifikasi*/
+.oy ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.oy>ul>li {
+    float: left;
+}
+
+
+.oy li a {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+
+li.dropdown {
+    display: inline-block;
+}
+
+.dropdown:hover .isi-dropdown {
+    display: block;
+}
+
+.isi-dropdown a:hover {
+    color: #fff !important;
+}
+
+.isi-dropdown {
+    display: none;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    background-color: #f9f9f9;
+}
+
+/* selesai drop down*/
+
+.pricingTable {
+    background: #fff;
+    text-align: center;
+    padding-bottom: 30px;
+    transition: all 0.5s ease 0s;
+}
+
+.pricingTable:hover {
+    box-shadow: 0 10px 21px 0 rgba(0, 0, 0, 0.21);
+}
+
+.pricingTable .pricingTable-signup {
+    display: inline-block;
+    padding: 15px 30px;
+    font-size: 14px;
+    color: #fff;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border-radius: 7px;
+    background: #91825c;
+    transition: all 0.5s ease 0s;
+}
+
+.pricingTable .pricingTable-signup i {
+    font-size: 15px;
+    margin-right: 8px;
+}
+
+.pricingTable .pricingTable-signup:hover {
+    background: #1be788;
+}
+
+@media only screen and (max-width:990px) {
+    .pricingTable {
+        margin-bottom: 20px;
+    }
+}
