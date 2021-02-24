@@ -4,6 +4,7 @@ include "../koneksi.php";
 session_start();
 if (isset($_SESSION['nameOP'])) {
     $gd = mysqli_query($konek, "SELECT * FROM pc");
+    $no = 1;
 } else {
     echo "<script>alert('Anda Belum Login silahkan login terlebih dahulu !!!!'); document.location= '../Login/Login_Operator.html'</script>";
 }
@@ -66,63 +67,75 @@ if (isset($_SESSION['nameOP'])) {
                         <div class="card-body">
                             <table>
                                 <tr>
-                                    <?php
-                                    while ($data = mysqli_fetch_assoc($gd)) {
-                                    ?>
+                                <?php
+                                // proses pemanggilan rincian tabel database
+                                while ($data = mysqli_fetch_assoc($gd)) {
+                                    if ($no == 1 || $no%3 == 1) {
+                                ?>
+                                        <tr>
+                                        <?php } ?>
                                         <form action="prosesOP.php" method="GET">
-                                        <td>
-                                            <div class="card mb-3">
-                                                <h1 class="title text-center">PC-<?php echo $data['nopc'] ?></h1>
-                                                <h5 class = "text-center">Status : <?php echo $data['stats'] ?></h5>
-                                                <img src="../assets/img/incon2.png" width="345px">
-                                                <?php if($data['stats']=="Available"){?>
-                                                    <div class="form-row">
-                                                        <div class="col">
-                                                            <div class="form-group">
-                                                                <button type="submit" class="btn btn-primary  btn-sm" name="submit" value="Maintenance <?php echo $data['nopc'] ?>">Maintenance </button>
+                                            <td>
+                                                <div class="card mb-3">
+                                                    <h1 class="title text-center">PC-<?php echo $data['nopc'] ?></h1>
+                                                    <h5 class="text-center">Status : <?php echo $data['stats'] ?></h5>
+                                                    <img src="../assets/img/incon2.png" width="345px">
+                                                    <!-- Proses pengiriman data untuk mengupdate status PC -->
+                                                    <?php if ($data['stats'] == "Available") { ?>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <button type="submit" class="btn btn-primary  btn-sm" name="submit" value="Maintenance <?php echo $data['nopc'] ?>">Maintenance </button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-3">
+                                                                <div class="form-group">
+                                                                    <button class="btn btn-primary  btn-sm" type="submit" name="submit" value="Playing <?php echo $data['nopc'] ?>">Buka PC</button>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-3">
-                                                            <div class="form-group">
-                                                                <button class="btn btn-primary  btn-sm" type="submit"name="submit" value="Playing <?php echo $data['nopc'] ?>">Buka PC</button>
+                                                    <?php } elseif ($data['stats'] == "Booked") { ?>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <button type="submit" class="btn btn-primary  btn-sm" name="submit" value="Available <?php echo $data['nopc'] ?>">Cancel </button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-3">
+                                                                <div class="form-group">
+                                                                    <button class="btn btn-primary  btn-sm" type="submit" name="submit" value="Playing <?php echo $data['nopc'] ?>">Buka PC</button>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                <?php } elseif($data['stats']=="Booked"){ ?>
-                                                    <div class="form-row">
-                                                        <div class="col">
-                                                            <div class="form-group">
-                                                                <button type="submit" class="btn btn-primary  btn-sm" name="submit" value="Available <?php echo $data['nopc'] ?>">Cancel </button>
+                                                    <?php } elseif ($data['stats'] == "Maintenance") { ?>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <button type="submit" class="btn btn-primary  btn-sm" name="submit" value="Available <?php echo $data['nopc'] ?>">Available </button>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-3">
-                                                            <div class="form-group">
-                                                                <button class="btn btn-primary  btn-sm" type="submit"name="submit" value="Playing <?php echo $data['nopc'] ?>">Buka PC</button>
+                                                    <?php } elseif ($data['stats'] == "Playing") { ?>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <button type="submit" class="btn btn-primary  btn-sm" name="submit" value="Available <?php echo $data['nopc'] ?>">Close </button>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                <?php } elseif($data['stats']=="Maintenance"){?>
-                                                    <div class="form-row">
-                                                        <div class="col">
-                                                            <div class="form-group">
-                                                                <button type="submit" class="btn btn-primary  btn-sm" name="submit" value="Available <?php echo $data['nopc'] ?>">Available </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                <?php } elseif($data['stats']=="Playing"){?>
-                                                    <div class="form-row">
-                                                        <div class="col">
-                                                            <div class="form-group">
-                                                                <button type="submit" class="btn btn-primary  btn-sm" name="submit" value="Available <?php echo $data['nopc'] ?>">Close </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                <?php } ?>
-                                            </div>
-                                        </td>
+                                                    <?php } ?>
+                                                </div>
+                                            </td>
                                         </form>
-                                    <?php } ?>
-                                </tr>
+                                        <?php
+                                        if ($no%3 == 0) {
+                                        ?>
+                                        </tr>
+                                        <?php } ?>
+                                    <?php 
+                                     $no++;
+                                        }
+                                    ?>
                             </table>
                             <br>
                             <div class="row">

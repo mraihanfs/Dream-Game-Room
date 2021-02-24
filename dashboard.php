@@ -7,6 +7,7 @@
     }else{
         echo "<script>alert('Anda Belum Login silahkan login terlebih dahulu !!!!'); document.location= './Login/Login_User.html'</script>";
     }
+    $no = 1;
 ?>
 <html>
 
@@ -79,31 +80,38 @@
                         <div class="card-body">
                             <table>
                                <tr >
-                                <?php 
-                                    $gd = mysqli_query($konek, "SELECT * FROM pc");
-                                    while($data = mysqli_fetch_assoc($gd)){?>
+                               <?php
+                                // Proses Pemanggilan data dan menampilkannya (Proses Read)
+                                $gd = mysqli_query($konek, "SELECT * FROM pc");
+                                while ($data = mysqli_fetch_assoc($gd)) { 
+                                    if ($no == 1 || $no%3==1){
+                                ?>
+                                <tr>
+                                    <?php } ?>
                                     <td>
                                         <div class="card mb-3">
                                             <div class="pricingTable ">
                                                 <h1 class="title"> PC-<?php echo $data['nopc']; ?></h1>
                                                 <img src="assets/img/incon2.png" width="345px">
                                                 <br>
-                                                <?php if($data['stats']=="Available"){?>
+                                                <?php if ($data['stats'] == "Available") { ?>
+                                                    <!-- Proses pengiriman data untuk membooking -->
                                                     <form action="Booking.php" method="GET">
                                                         <button type="submit" name="submit" value="<?php echo $data['nopc']; ?>" class="pricingTable-signup"></button>
                                                     </form>
                                                 <?php
-                                                    }else{
-
-                                                    }
+                                                } else {
+                                                }
                                                 ?>
                                             </div>
                                         </div>
                                     </td>
-                                    <?php
-                                    }   
-                                    ?>                                
-                               </tr>
+                                <?php
+                                    if ($no%3==0){?>
+                                </tr>
+                                    <?php }     
+                                $no++;
+                                }?>
                             </table>
                             <br>
                             <div class="row">
